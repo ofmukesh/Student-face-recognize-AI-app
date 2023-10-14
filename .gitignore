@@ -1,3 +1,12 @@
+# Ignore files with .pyc and .pyo extensions (Python bytecode files)
+*.pyc
+*.pyo
+
+# Ignore the virtual environment directory
 env
+
+# Ignore the 'media' directory
+media/
+
+# Ignore the database directory
 instance
-media

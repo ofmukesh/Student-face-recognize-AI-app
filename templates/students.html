@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Students</title>
+    <!-- Include Bootstrap CSS (you should have Bootstrap installed or linked to a CDN) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
     <div class="container">
         <h1 class="mt-5">Students</h1>
@@ -15,24 +18,33 @@
                     <th>Roll No</th>
                     <th>Class</th>
                     <th>Photo</th>
+                    <th>Delete</th> <!-- Added a Delete column -->
                 </tr>
             </thead>
             <tbody>
                 {% for student in students %}
-                    <tr>
-                        <td>{{ student.studentID }}</td>
-                        <td>{{ student.name }}</td>
-                        <td>{{ student.roll_no }}</td>
-                        <td>{{ student.class_name }}</td>
-                        <td>
-                            <img src="{{ url_for('media', filename=student.photo) }}" alt="Student Photo" width="50">
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ student.studentID }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.class_name }}</td>
+                    <td>
+                        <img src="{{ url_for('media', filename=student.photo) }}" alt="Student Photo" width="50">
+                    </td>
+                    <td>
+                        <!-- Form to submit a DELETE request to delete a student -->
+                        <form method="POST" action="/delete_student/{{ student.id }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
                 {% endfor %}
+
             </tbody>
         </table>
         <a href="/add_student" class="btn btn-primary mt-3">Add Student</a>
-        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">back</a>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">Back</a>
     </div>
 </body>
+
 </html>

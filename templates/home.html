@@ -12,8 +12,14 @@
         <p class="lead">This is the homepage of our student management system. You can navigate to different sections using the links below:</p>
 
         <ul class="list-group">
+            <!-- Link to view the list of students -->
             <li class="list-group-item"><a href="{{ url_for('students') }}">View Students</a></li>
+
+            <!-- Link to add a new student -->
             <li class="list-group-item"><a href="{{ url_for('add_student') }}">Add Student</a></li>
+
+            <!-- Link to the "Live Page" (you can add a new page for live camera feed) -->
+            <li class="list-group-item"><a href="{{ url_for('live') }}">Live Page</a></li>
         </ul>
     </div>
 

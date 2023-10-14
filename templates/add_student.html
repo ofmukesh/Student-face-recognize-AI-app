@@ -2,31 +2,56 @@
 <html>
 <head>
     <title>Add Student</title>
+    <!-- Include Bootstrap CSS (you should have Bootstrap installed or linked to a CDN) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <h1 class="mt-5">Add Student</h1>
+        <!-- Student registration form -->
         <form method="POST" enctype="multipart/form-data">
+            <!-- Hidden CSRF token field for security -->
             {{ form.hidden_tag() }}
+
+            <!-- Student ID input field -->
             <div class="form-group">
-                {{ form.studentID.label(class="control-label") }} {{ form.studentID(class="form-control") }}
+                {{ form.studentID.label(class="control-label") }}
+                {{ form.studentID(class="form-control") }}
             </div>
+
+            <!-- Name input field -->
             <div class="form-group">
-                {{ form.name.label(class="control-label") }} {{ form.name(class="form-control") }}
+                {{ form.name.label(class="control-label") }}
+                {{ form.name(class="form-control") }}
             </div>
+
+            <!-- Roll Number input field -->
             <div class="form-group">
-                {{ form.roll_no.label(class="control-label") }} {{ form.roll_no(class="form-control") }}
+                {{ form.roll_no.label(class="control-label") }}
+                {{ form.roll_no(class="form-control") }}
             </div>
+
+            <!-- Class Name input field -->
             <div class="form-group">
-                {{ form.class_name.label(class="control-label") }} {{ form.class_name(class="form-control") }}
+                {{ form.class_name.label(class="control-label") }}
+                {{ form.class_name(class="form-control") }}
             </div>
+
+            <!-- Photo upload input field -->
             <div class="form-group">
-                {{ form.photo.label(class="control-label") }} {{ form.photo(class="form-control-file") }}
+                {{ form.photo.label(class="control-label") }}
+                {{ form.photo(class="form-control-file") }}
             </div>
+
+            <!-- Submit button to add the student -->
             <button type="submit" class="btn btn-primary">Add Student</button>
         </form>
+
+        <!-- Back button to return to the home page -->
         <a href="/" class="btn btn-secondary mt-3">Back</a>
     </div>
+
+    <!-- Include Bootstrap JS (you should have Bootstrap installed or linked to a CDN) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
