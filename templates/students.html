@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Students</h1>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Class</th>
+                    <th>Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.studentID }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.roll_no }}</td>
+                        <td>{{ student.class_name }}</td>
+                        <td>
+                            <img src="{{ url_for('media', filename=student.photo) }}" alt="Student Photo" width="50">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/add_student" class="btn btn-primary mt-3">Add Student</a>
+        <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">back</a>
+    </div>
+</body>
+</html>

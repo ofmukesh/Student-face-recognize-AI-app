@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Add Student</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.studentID.label(class="control-label") }} {{ form.studentID(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.name.label(class="control-label") }} {{ form.name(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.roll_no.label(class="control-label") }} {{ form.roll_no(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.class_name.label(class="control-label") }} {{ form.class_name(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.photo.label(class="control-label") }} {{ form.photo(class="form-control-file") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Add Student</button>
+        </form>
+        <a href="/" class="btn btn-secondary mt-3">Back</a>
+    </div>
+</body>
+</html>

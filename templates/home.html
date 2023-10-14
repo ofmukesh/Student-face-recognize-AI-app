@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+    <!-- Include Bootstrap CSS (you should have Bootstrap installed or linked to a CDN) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="display-4">Welcome to the Student Management System</h1>
+
+        <p class="lead">This is the homepage of our student management system. You can navigate to different sections using the links below:</p>
+
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ url_for('students') }}">View Students</a></li>
+            <li class="list-group-item"><a href="{{ url_for('add_student') }}">Add Student</a></li>
+        </ul>
+    </div>
+
+    <!-- Include Bootstrap JS (you should have Bootstrap installed or linked to a CDN) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
