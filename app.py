@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 # Initialize OpenCV face recognition
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+global users_data
 users_data = {}  # Dictionary to store user data (name and image)
 
 # Configuration settings
@@ -66,6 +67,11 @@ def add_student():
             file.save(file_path)
             student.photo = filename  # Store the filename in the database
 
+            # Extract face encoding from the uploaded image and add it to users_data
+            image = face_recognition.load_image_file(file_path)
+            face_encoding = face_recognition.face_encodings(image)[0]  # Assuming there's only one face per image
+            users_data[form.name.data] = face_encoding.tolist()
+
             db.session.add(student)
             db.session.commit()
             return redirect(url_for('students'))
@@ -74,10 +80,10 @@ def add_student():
 
 
 def detect_faces():
-    global video_capture  # Declare the video_capture as a global variable
+    global video_capture
 
     if video_capture is None:
-        video_capture = cv2.VideoCapture(0)  # Open the camera when accessing /video_feed
+        video_capture = cv2.VideoCapture(0)
 
     while True:
         ret, frame = video_capture.read()
@@ -89,16 +95,26 @@ def detect_faces():
 
         for (x, y, w, h) in faces:
             name = recognize_face(frame[y:y+h, x:x+w])
+
+            # Draw a rectangle around the face
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
             if name:
-                print(f"Hello, {name}!")
+                # Display the recognized name, roll number, and student ID above the face
+                cv2.putText(frame, f"Name: {name.split('_')[0]}", (x, y - 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                cv2.putText(frame, f"Roll No.: {name.split('_')[1]}", (x, y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                cv2.putText(frame, f"Student ID: {name.split('_')[2].split('.')[0]}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
             else:
-                print('Unknown')
+                # Display "Unknown" above the face
+                cv2.putText(frame, "Unknown", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
 
         # Display the video stream
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 def recognize_face(face_image):
     rgb_image = cv2.cvtColor(face_image, cv2.COLOR_BGR2RGB)
@@ -128,6 +144,10 @@ def delete_student(id):
     student = Student.query.get(id)
     if student:
         if request.method == 'POST':
+            # Remove the user data if it exists
+            if student.photo in users_data:
+                del users_data[student.photo]
+
             # Check if the student has a photo and delete it from the media folder
             if student.photo:
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], student.photo)
@@ -173,5 +193,4 @@ if __name__ == '__main__':
             image = face_recognition.load_image_file(file_path)
             face_encoding = face_recognition.face_encodings(image)[0]  # Assuming there's only one face per image
             users_data[filename] = face_encoding.tolist()
-
     app.run(debug=True, host='0.0.0.0', port=8000)
