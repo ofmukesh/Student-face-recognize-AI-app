@@ -1,5 +1,3 @@
-Creating comprehensive documentation for a project is an important step to ensure that others can understand, use, and contribute to your project effectively. Below is a template for your project documentation:
-
 # Student Face Recognition System Documentation
 
 ## Table of Contents
